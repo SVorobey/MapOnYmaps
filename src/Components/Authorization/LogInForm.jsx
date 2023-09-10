@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-nested-ternary */
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import {
   LogIn, Input, Submit, Text,
 } from './style';
@@ -12,14 +13,18 @@ import handleLogIn from '../../Helpers/Authorization/handleLogIn';
 // eslint-disable-next-line max-len
 export default function LogInForm({
   isLoginForm, username, email, password, setUsername, setEmail, setPassword, setShowBlock,
-  setIsLoginForm, setUser, setIsAuthorized,
+  setIsLoginForm, setIsAuthorized,
 }) {
+  const dispatch = useDispatch();
   const handleToggleForm = () => {
     setIsLoginForm((prevValue) => !prevValue);
   };
   const handleRegistration = () => {
-    handleSignUp(email, password, username, setUser, setEmail, setPassword, setUsername);
+    handleSignUp(email, password, username, dispatch);
     handleToggleForm();
+    setEmail('');
+    setPassword('');
+    setUsername('');
   };
   /* const handleLoginned = () => {
     try {
@@ -61,7 +66,7 @@ export default function LogInForm({
       ))}
       {isLoginForm ? (
         <>
-          <Submit type="button" onClick={() => handleLogIn(setShowBlock, setIsAuthorized)}>
+          <Submit type="button" onClick={() => handleLogIn(setShowBlock, setIsAuthorized, email, password, dispatch)}>
             Войти
           </Submit>
           <Text>

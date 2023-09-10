@@ -40,7 +40,6 @@ const userSlice = createSlice({
     },
   },
 });
-export const userData = (state) => state.user.user;
-export const { setUser } = userSlice.actions;
-export const { setLogin } = userSlice.actions;
+export const userData = (state) => state.user.userName;
+export const { setUser, setLogin } = userSlice.actions;
 export default userSlice.reducer;

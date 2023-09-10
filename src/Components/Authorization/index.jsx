@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-nested-ternary */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   AuthWrapper, AuthForm, UnderWrapper, CloseForm,
 } from './style';
@@ -13,6 +13,16 @@ export default function Authorization({
 }) {
   const [isLoginForm, setIsLoginForm] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(false);
+  let token;
+  useEffect(() => {
+    token = localStorage.getItem('Token');
+  }, []);
+
+  useEffect(() => {
+    if (token) {
+      setIsAuthorized(true);
+    }
+  }, [token]);
   return (
     <AuthWrapper
       className={showBlock ? 'active_block' : ''}

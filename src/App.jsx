@@ -11,18 +11,15 @@ function App() {
     const localAccessToken = localStorage.getItem('Token');
     if (localAccessToken) {
       const auth = getAuth();
-      const unsubscribe = onAuthStateChanged(auth, (item) => {
+      onAuthStateChanged(auth, (item) => {
         if (item && item.accessToken) {
           dispatch(setUser({
             email: item.email,
             userName: item.displayName,
-            password: item.password,
             token: localAccessToken,
           }));
-          console.log('huyna');
         }
       });
-      unsubscribe();
     }
   }, []);
   return (
